@@ -52,28 +52,27 @@ Y(1) = 0; % initial condition for y
 
 % Since the trapezoidal method is implicit and non-linear, we have to have
 % initial guesses for the x and y, and we could use Newton's method to
-% estimate X(i+1) and Y(i+i) on the right hand side
+% estimate X(i+1) and Y(i+i) in the right hand side
 
-for i=1:100
+for j=1:100
     
-    % We take previous time step X(i) and Y(i) as our initial guesses for
-    % X(i+1) and Y(i+1) and denote them as x and y
-    x = X(i);
-    y = Y(i);
+    % We take 
+    x = X(j);
+    y = Y(j);
     
-    for k = 1:20
-        % Newton's method to find X(i+1) and Y(i+1) on the right hand side
-        x = x - (x-X(i)-(dt/2)*((-Y(i)+X(i).*(1-X(i).^2-Y(i).^2))+(-y+x.*(1-x.^2-y.^2))))/(1-(dt/2)*(1-3*x.^2-y.^2));
-        y = y - (y-Y(i)-(dt/2)*((X(i)+Y(i).*(1-X(i).^2-Y(i).^2))+(x+y.*(1-x.^2-y.^2))))/(1-(dt/2)*(1-3*y.^2-x.^2));
+    for i = 1:20
+        % Newton's method to find X(i+1) in the right hand side
+        x = x - (x-X(j)-(dt/2)*((-Y(j)+X(j).*(1-X(j).^2-Y(j).^2))+(-y+x.*(1-x.^2-y.^2))))/(1-(dt/2)*(1-3*x.^2-y.^2));
+        y = y - (y-Y(j)-(dt/2)*((X(j)+Y(j).*(1-X(j).^2-Y(j).^2))+(x+y.*(1-x.^2-y.^2))))/(1-(dt/2)*(1-3*y.^2-x.^2));
     end
     
     % Iterate through Trapezoidal method and plug in the X(i+1) and Y(i+1)
     % we found in the previous Newton's method
-    w = X(i)+(dt/2)*((-Y(i)+X(i).*(1-X(i).^2-Y(i).^2))+(-y+x.*(1-x.^2-y.^2)));
-    v = Y(i)+(dt/2)*((X(i)+Y(i).*(1-X(i).^2-Y(i).^2))+(x+y.*(1-x.^2-y.^2)));
+    w = X(j)+(dt/2)*((-Y(j)+X(j).*(1-X(j).^2-Y(j).^2))+(-y+x.*(1-x.^2-y.^2)));
+    v = Y(j)+(dt/2)*((X(j)+Y(j).*(1-X(j).^2-Y(j).^2))+(x+y.*(1-x.^2-y.^2)));
     
-    X(i+1) = w;
-    Y(i+1) = v;
+    X(j+1) = w;
+    Y(j+1) = v;
     
 end
 
