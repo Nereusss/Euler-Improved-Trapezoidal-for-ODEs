@@ -61,6 +61,7 @@ for i=1:100
     x = X(i);
     y = Y(i);
     
+    % Perform Newton's method iteration
     for k = 1:20
         % Newton's method to find X(i+1) and Y(i+1) on the right hand side
         x = x - (x-X(i)-(dt/2)*((-Y(i)+X(i).*(1-X(i).^2-Y(i).^2))+(-y+x.*(1-x.^2-y.^2))))/(1-(dt/2)*(1-3*x.^2-y.^2));
